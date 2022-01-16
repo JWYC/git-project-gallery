@@ -66,9 +66,34 @@ repoList.addEventListener("click", function(e){
 });
 
 const individualRepoData = async function(repoName){
-   let res2 = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
-   let repoInfo = await res2.json();
+   const res2 = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+   const repoInfo = await res2.json();
+   
    console.log(repoInfo);
+   //this code works // displays an array of languages.
+  /* const fetchLanguages = await fetch(`https://api.github.com/repos/${username}/${repoName}/languages`);
+   //console.log(fetchLanguages);
+   const languageData = await fetchLanguages.json();
+   console.log(languageData);*/
+
+// this code doesn't work - why???// returns script.js:82 Uncaught (in promise) TypeError: fetchLanguages.json is not a function/
+   const fetchLanguages = repoInfo.languages_url;
+   console.log(fetchLanguages);
+   //retruns https://api.github.com/repos/JWYC/random-image-generator/languages in console//
+   const languageData = await fetchLanguages.json();
+   console.log(languageData)
+
+/// code that works above runs through this for loop and displays each language ///
+   const languages = []
+
+   //for (let item of languageData ){
+      for (let item in languageData){
+         console.log(`hello ${item}`);
+         languages.push(item);
+      }
+  // }
+      console.log(languages);
+ 
 };
 
 
