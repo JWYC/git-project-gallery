@@ -70,31 +70,36 @@ const individualRepoData = async function(repoName){
    const repoInfo = await res2.json();
    
    console.log(repoInfo);
-   //this code works // displays an array of languages.
-  /* const fetchLanguages = await fetch(`https://api.github.com/repos/${username}/${repoName}/languages`);
+//this code does go into the object of the object  and isn't dynamic (has to hard code /laguages to displays an array of languages. 
+
+  /*const fetchLanguages = await fetch(`https://api.github.com/repos/${username}/${repoName}/languages`);
    //console.log(fetchLanguages);
    const languageData = await fetchLanguages.json();
    console.log(languageData);*/
 
-// this code doesn't work - why???// returns script.js:82 Uncaught (in promise) TypeError: fetchLanguages.json is not a function/
-   const fetchLanguages = repoInfo.languages_url;
-   console.log(fetchLanguages);
+// Originally this didn't work because it is missing the await fetch to wait for the api request. 
+   /*const fetchLanguages = repoInfo.languages_url;
    //retruns https://api.github.com/repos/JWYC/random-image-generator/languages in console//
    const languageData = await fetchLanguages.json();
-   console.log(languageData)
+   console.log(languageData)*/
 
-/// code that works above runs through this for loop and displays each language ///
-   const languages = []
+// Working Answer // - note the await fetch that always surrounds the api URL and is needed for storing of the variable. this is an additional call so you need to wait a second time. 
+  const fetchLanguages = await fetch (repoInfo.languages_url)
+   //console.log(fetchLanguages);
+   const languageData = await fetchLanguages.json();
+   //console.log(languageData);
+
+   console.log(` This is languageData ${languageData}`);
+
+/// runs through key value pairs from language Data which is the fetchedLanguages - then loops and displays each language /// note: you don't need the for of loop you aren't looking at multiple arrays but an object with an array.
+   
+const languages = []
 
    //for (let item of languageData ){
       for (let item in languageData){
-         console.log(`hello ${item}`);
+         console.log(`${item}`);
          languages.push(item);
       }
-  // }
+   //}
       console.log(languages);
- 
 };
-
-
-
