@@ -62,44 +62,45 @@ repoList.addEventListener("click", function(e){
    const repoName = e.target.innerText;
    //console.log(`${repoName}`);
    individualRepoData(repoName);
+   
    }
 });
 
 const individualRepoData = async function(repoName){
+   //request for specific named repos //
    const res2 = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
    const repoInfo = await res2.json();
+      console.log(repoInfo);
+   //request for specific named repos object key that holds values//
+   const fetchLanguages = await fetch (repoInfo.languages_url)
+   const languageData = await fetchLanguages.json();
+
+      console.log(` This is languageData ${languageData}`);
+
+   // runs through key value pairs from language Data which is the fetchedLanguages - then loops and displays each language//
+   const languages = []
    
-   console.log(repoInfo);
-//this code does go into the object of the object  and isn't dynamic (has to hard code /laguages to displays an array of languages. 
-
-  /*const fetchLanguages = await fetch(`https://api.github.com/repos/${username}/${repoName}/languages`);
-   //console.log(fetchLanguages);
-   const languageData = await fetchLanguages.json();
-   console.log(languageData);*/
-
-// Originally this didn't work because it is missing the await fetch to wait for the api request. 
-   /*const fetchLanguages = repoInfo.languages_url;
-   //retruns https://api.github.com/repos/JWYC/random-image-generator/languages in console//
-   const languageData = await fetchLanguages.json();
-   console.log(languageData)*/
-
-// Working Answer // - note the await fetch that always surrounds the api URL and is needed for storing of the variable. this is an additional call so you need to wait a second time. 
-  const fetchLanguages = await fetch (repoInfo.languages_url)
-   //console.log(fetchLanguages);
-   const languageData = await fetchLanguages.json();
-   //console.log(languageData);
-
-   console.log(` This is languageData ${languageData}`);
-
-/// runs through key value pairs from language Data which is the fetchedLanguages - then loops and displays each language /// note: you don't need the for of loop you aren't looking at multiple arrays but an object with an array.
-   
-const languages = []
-
-   //for (let item of languageData ){
-      for (let item in languageData){
-         console.log(`${item}`);
-         languages.push(item);
-      }
-   //}
+   for (let item in languageData){
+      console.log(`${item}`);
+      languages.push(item);
+   }
       console.log(languages);
+   
+   displayRepoInfo(repoInfo, languages);
+};
+
+const displayRepoInfo = function(repoInfo, languages){
+   individualRepo.innerHTML = "";
+   const newIndivRepo = document.createElement("div");
+   newIndivRepo.innerHTML =
+      `<h3>Name: ${repoInfo.name}</h3>
+      <p>Description: ${repoInfo.description}</p>
+      <p>Default Branch: ${repoInfo.default_branch}</p>
+      <p>Languages: ${languages.join(", ")}</p>
+      <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`
+   
+   individualRepo.append(newIndivRepo);
+   individualRepo.classList.remove("hide");
+   repoSect.classList.add("hide");
+   
 };
