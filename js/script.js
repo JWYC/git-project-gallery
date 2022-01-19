@@ -6,6 +6,10 @@ const repoList = document.querySelector(".repo-list");
 const repoSect = document.querySelector(".repos");
 //individualRepo - selects where each repo's data appears //
 const individualRepo = document.querySelector(".repo-data");
+//back to repo button //
+const returnToGalBtn = document.querySelector(".view-repos");
+//search input //
+const filterInput = document.querySelector(".filter-repos");
 
 const username = "jwyc"
 
@@ -102,5 +106,12 @@ const displayRepoInfo = function(repoInfo, languages){
    individualRepo.append(newIndivRepo);
    individualRepo.classList.remove("hide");
    repoSect.classList.add("hide");
+   returnToGalBtn.classList.remove("hide");
    
 };
+
+returnToGalBtn.addEventListener("click", function(e){
+   repoSect.classList.remove("hide");
+   individualRepo.classList.add("hide");
+   returnToGalBtn.classList.add("hide");
+});
