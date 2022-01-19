@@ -52,6 +52,9 @@ const listingRepos = async function(){
 listingRepos();
 
 const displayRepo = function(repos){
+   
+   filterInput.classList.remove("hide");
+   
    for (const repo of repos){
       let listItem = document.createElement("li");
       listItem.classList.add("repo");
@@ -115,3 +118,24 @@ returnToGalBtn.addEventListener("click", function(e){
    individualRepo.classList.add("hide");
    returnToGalBtn.classList.add("hide");
 });
+
+filterInput.addEventListener("input", function(e){
+   const searchInput = e.target.value;
+   //console.log(searchInput);
+
+   const repos = document.querySelectorAll(".repo");
+   console.log(repos);
+   //const ex = 
+   //console.log(ex);
+
+
+   const searchInputLower = searchInput.toLowerCase();
+   console.log(searchInputLower);
+
+   for (item of repos){
+      const searchName = item.innerText;
+      console.log(searchName);
+
+   }
+
+})
