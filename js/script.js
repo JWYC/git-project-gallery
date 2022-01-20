@@ -55,12 +55,18 @@ const displayRepo = function(repos){
    
    filterInput.classList.remove("hide");
    
+   //const filterOutRepos =
+
    for (const repo of repos){
+      console.log(repo);
+      if (repo.name.match(/105/)){
+         console.log(`hide ${repo}`)
+      }else{
       let listItem = document.createElement("li");
       listItem.classList.add("repo");
       listItem.innerHTML=`<h3>${repo.name}</h3>`;
       repoList.append(listItem);
-      
+      }
    }
 };
 
@@ -69,7 +75,6 @@ repoList.addEventListener("click", function(e){
    const repoName = e.target.innerText;
       
    individualRepoData(repoName);
-   
    }
 });
 
