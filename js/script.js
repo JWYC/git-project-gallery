@@ -124,18 +124,20 @@ filterInput.addEventListener("input", function(e){
    //console.log(searchInput);
 
    const repos = document.querySelectorAll(".repo");
-   console.log(repos);
-   //const ex = 
-   //console.log(ex);
+   //console.log(repos);
 
-
-   const searchInputLower = searchInput.toLowerCase();
-   console.log(searchInputLower);
+   let searchInputLower = searchInput.toLowerCase();
 
    for (item of repos){
-      const searchName = item.innerText;
-      console.log(searchName);
+      let searchName = item.innerText.toLowerCase();
 
+      if (!searchName.match(searchInputLower)){ 
+         item.classList.add("hide");
+      }else{
+         item.classList.remove("hide");
+         }
    }
+
+  
 
 })
