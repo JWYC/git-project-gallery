@@ -16,7 +16,7 @@ const username = "jwyc"
 const getData = async function(){
    const res = await fetch(`https://api.github.com/users/${username}`);
    const data = await res.json();
-   //dconsole.log(data);
+   
    userProfileInfo(data);
 
 };
@@ -44,9 +44,9 @@ const userProfileInfo = function(data){
 const listingRepos = async function(){
    const repoInfoRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=99`);
    const repos = await repoInfoRes.json();
-   //console.log("hello");
+   
    console.log(repos);
-   //console.log("goodbye");
+   
    displayRepo(repos);
 };
 listingRepos();
@@ -60,14 +60,14 @@ const displayRepo = function(repos){
       listItem.classList.add("repo");
       listItem.innerHTML=`<h3>${repo.name}</h3>`;
       repoList.append(listItem);
-      //console.log(` hello ${repo.name}`);
+      
    }
 };
 
 repoList.addEventListener("click", function(e){
    if(e.target.matches("h3")){
    const repoName = e.target.innerText;
-   //console.log(`${repoName}`);
+      
    individualRepoData(repoName);
    
    }
@@ -112,19 +112,18 @@ const displayRepoInfo = function(repoInfo, languages){
    returnToGalBtn.classList.remove("hide");
    
 };
-
+// return to gallery button added after individual repo info//
 returnToGalBtn.addEventListener("click", function(e){
    repoSect.classList.remove("hide");
    individualRepo.classList.add("hide");
    returnToGalBtn.classList.add("hide");
 });
 
+// search function //
 filterInput.addEventListener("input", function(e){
    const searchInput = e.target.value;
-   //console.log(searchInput);
 
    const repos = document.querySelectorAll(".repo");
-   //console.log(repos);
 
    let searchInputLower = searchInput.toLowerCase();
 
